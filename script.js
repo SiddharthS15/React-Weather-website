@@ -9,7 +9,7 @@ document.getElementById('searchBtn').addEventListener('click', () => {
         return;
     }
     fetchWeather(country);
-});git initgit init
+});
 
 function fetchWeather(country) {
     // Get the capital city for the country using REST Countries API
