@@ -3,6 +3,8 @@ body {
     background: #e0e7ff;
     margin: 0;
     padding: 0;
+    background: #e0e7ff url('https://cdn.jsdelivr.net/gh/encharm/Font-Awesome-SVG-PNG@master/black/png/256/cloud-sun.png') no-repeat center 80px;
+    background-size: 180px 180px;
 }
 .weather-app {
     max-width: 400px;
@@ -44,4 +46,10 @@ body {
 }
 .weather-container .error {
     color: #ef4444;
+}
+.weather-bg-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
 }
