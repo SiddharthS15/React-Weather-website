@@ -12,6 +12,9 @@ document.getElementById('searchBtn').addEventListener('click', () => {
 });
 
 function fetchWeather(country) {
+    // Show loading spinner
+    showLoading();
+    
     // Get the capital city for the country using REST Countries API
     fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(country)}?fullText=true`)
         .then(res => res.json())
@@ -49,13 +52,25 @@ function getWeatherByCity(city, country) {
 
 function showWeather(city, country, temp, humidity, rainfall) {
     document.getElementById('weatherContainer').innerHTML = `
-        <h2>Weather in ${city}, ${country}</h2>
-        <p><strong>Temperature:</strong> ${temp} °C</p>
-        <p><strong>Humidity:</strong> ${humidity}%</p>
-        <p><strong>Rainfall:</strong> ${rainfall}</p>
+        <div class="weather-result">
+            <h2>Weather in ${city}, ${country}</h2>
+            <p><strong>Temperature:</strong> ${temp} °C</p>
+            <p><strong>Humidity:</strong> ${humidity}%</p>
+            <p><strong>Rainfall:</strong> ${rainfall}</p>
+        </div>
     `;
 }
 
 function showError(msg) {
-    document.getElementById('weatherContainer').innerHTML = `<p class="error">${msg}</p>`;
+    const container = document.getElementById('weatherContainer');
+    container.innerHTML = `<p class="error">${msg}</p>`;
+    container.classList.add('shake');
+    setTimeout(() => container.classList.remove('shake'), 500);
+}
+
+function showLoading() {
+    document.getElementById('weatherContainer').innerHTML = `
+        <div class="loading-spinner"></div>
+        <p>Loading weather data...</p>
+    `;
 }
