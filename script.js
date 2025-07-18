@@ -1,6 +1,30 @@
 
-// Replace with your actual OpenWeatherMap API key
+// API key is loaded from config.js
+// Make sure to include config.js before this script in your HTML
 
+// Theme toggle functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const themeSwitch = document.getElementById('theme-switch');
+    const body = document.body;
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-theme');
+        themeSwitch.checked = true;
+    }
+    
+    // Theme toggle event listener
+    themeSwitch.addEventListener('change', () => {
+        if (themeSwitch.checked) {
+            body.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.classList.remove('dark-theme');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+});
 
 document.getElementById('searchBtn').addEventListener('click', () => {
     const country = document.getElementById('countryInput').value.trim();
@@ -30,7 +54,7 @@ function fetchWeather(country) {
 }
 
 function getWeatherByCity(city, country) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)},${encodeURIComponent(country)}&appid=${API_KEY}&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)},${encodeURIComponent(country)}&appid=${CONFIG.API_KEY}&units=metric`)
         .then(res => res.json())
         .then(data => {
             if (data.cod !== 200) {
