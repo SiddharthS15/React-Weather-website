@@ -54,7 +54,7 @@ function fetchWeather(country) {
 }
 
 function getWeatherByCity(city, country) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)},${encodeURIComponent(country)}&appid=${CONFIG.API_KEY}&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)},${encodeURIComponent(country)}&appid=${API_KEY}&units=metric`)
         .then(res => res.json())
         .then(data => {
             if (data.cod !== 200) {
