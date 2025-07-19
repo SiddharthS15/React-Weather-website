@@ -26,34 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Page Navigation System
-document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const pages = document.querySelectorAll('.page');
-    
-    // Handle navigation clicks
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Remove active class from all nav links
-            navLinks.forEach(nav => nav.classList.remove('active'));
-            
-            // Add active class to clicked nav link
-            link.classList.add('active');
-            
-            // Hide all pages
-            pages.forEach(page => page.classList.remove('active'));
-            
-            // Show target page
-            const targetPage = document.getElementById(link.dataset.page);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
-        });
-    });
-});
-
 document.getElementById('searchBtn').addEventListener('click', () => {
     const city = document.getElementById('cityInput').value.trim();
     if (!city) {
