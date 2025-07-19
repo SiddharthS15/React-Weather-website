@@ -280,6 +280,81 @@ body {
 
 /* Remove duplicate weather-app styles */
 
+/* Enhanced Weather Display */
+.weather-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.weather-icon-large {
+    width: 80px;
+    height: 80px;
+}
+
+.weather-info h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.weather-desc {
+    margin: 5px 0;
+    font-style: italic;
+    color: #666;
+    font-size: 16px;
+}
+
+.weather-details {
+    display: grid;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.weather-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #6366f1;
+}
+
+.weather-label {
+    font-weight: 500;
+    color: #555;
+}
+
+.weather-value {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Dark theme for weather display */
+body.dark-theme .weather-info h2 {
+    color: #fff;
+}
+
+body.dark-theme .weather-desc {
+    color: #ccc;
+}
+
+body.dark-theme .weather-item {
+    background: #3a3a3a;
+    border-left-color: #8b5cf6;
+}
+
+body.dark-theme .weather-label {
+    color: #ccc;
+}
+
+body.dark-theme .weather-value {
+    color: #fff;
+}
+
 /* Dark Theme */
 body.dark-theme {
     background: #1a1a1a;

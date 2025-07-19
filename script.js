@@ -27,60 +27,89 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.getElementById('searchBtn').addEventListener('click', () => {
-    const country = document.getElementById('countryInput').value.trim();
-    if (!country) {
-        showError('Please enter a country name.');
+    const city = document.getElementById('cityInput').value.trim();
+    if (!city) {
+        showError('Please enter a city name.');
         return;
     }
-    fetchWeather(country);
+    fetchWeather(city);
 });
 
-function fetchWeather(country) {
+// Add Enter key support
+document.getElementById('cityInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        document.getElementById('searchBtn').click();
+    }
+});
+
+function fetchWeather(city) {
     // Show loading spinner
     showLoading();
     
-    // Get the capital city for the country using REST Countries API
-    fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(country)}?fullText=true`)
-        .then(res => res.json())
-        .then(data => {
-            if (!data || !data[0] || !data[0].capital) {
-                showError('Country not found.');
-                return;
-            }
-            const city = data[0].capital[0];
-            getWeatherByCity(city, country);
-        })
-        .catch(() => showError('Error fetching country info.'));
-}
-
-function getWeatherByCity(city, country) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)},${encodeURIComponent(country)}&appid=${API_KEY}&units=metric`)
+    // Directly get weather data for the city
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`)
         .then(res => res.json())
         .then(data => {
             if (data.cod !== 200) {
-                showError('Weather data not found.');
+                showError('City not found. Please try another city.');
                 return;
             }
+            
             const temp = data.main.temp;
             const humidity = data.main.humidity;
+            const weatherDescription = data.weather[0].description;
+            const weatherIcon = data.weather[0].icon;
+            const country = data.sys.country;
+            const cityName = data.name;
+            const feelsLike = data.main.feels_like;
+            const windSpeed = data.wind.speed;
+            
             let rainfall = 'N/A';
             if (data.rain && data.rain['1h']) {
                 rainfall = `${data.rain['1h']} mm (last 1h)`;
             } else if (data.rain && data.rain['3h']) {
                 rainfall = `${data.rain['3h']} mm (last 3h)`;
             }
-            showWeather(city, country, temp, humidity, rainfall);
+            
+            showWeather(cityName, country, temp, humidity, rainfall, weatherDescription, weatherIcon, feelsLike, windSpeed);
         })
-        .catch(() => showError('Error fetching weather data.'));
+        .catch(() => showError('Error fetching weather data. Please try again.'));
 }
 
-function showWeather(city, country, temp, humidity, rainfall) {
+// Remove the old getWeatherByCity function since we're using direct city search now
+
+function showWeather(cityName, country, temp, humidity, rainfall, weatherDescription, weatherIcon, feelsLike, windSpeed) {
     document.getElementById('weatherContainer').innerHTML = `
         <div class="weather-result">
-            <h2>Weather in ${city}, ${country}</h2>
-            <p><strong>Temperature:</strong> ${temp} °C</p>
-            <p><strong>Humidity:</strong> ${humidity}%</p>
-            <p><strong>Rainfall:</strong> ${rainfall}</p>
+            <div class="weather-header">
+                <img src="https://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="${weatherDescription}" class="weather-icon-large">
+                <div class="weather-info">
+                    <h2>${cityName}, ${country}</h2>
+                    <p class="weather-desc">${weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1)}</p>
+                </div>
+            </div>
+            <div class="weather-details">
+                <div class="weather-item">
+                    <span class="weather-label">🌡️ Temperature:</span>
+                    <span class="weather-value">${temp}°C</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">🤚 Feels like:</span>
+                    <span class="weather-value">${feelsLike}°C</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">💧 Humidity:</span>
+                    <span class="weather-value">${humidity}%</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">🌧️ Rainfall:</span>
+                    <span class="weather-value">${rainfall}</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">💨 Wind Speed:</span>
+                    <span class="weather-value">${windSpeed} m/s</span>
+                </div>
+            </div>
         </div>
     `;
 }
