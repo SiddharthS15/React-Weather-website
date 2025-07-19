@@ -26,6 +26,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Modal functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const aboutModal = document.getElementById('aboutModal');
+    const aboutLink = document.querySelector('a[href="#about"]');
+    const closeModal = document.getElementById('closeModal');
+    
+    // Open modal when About is clicked
+    aboutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        aboutModal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    });
+    
+    // Close modal when X is clicked
+    closeModal.addEventListener('click', () => {
+        aboutModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === aboutModal) {
+            aboutModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && aboutModal.style.display === 'block') {
+            aboutModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+});
+
 document.getElementById('searchBtn').addEventListener('click', () => {
     const city = document.getElementById('cityInput').value.trim();
     if (!city) {
