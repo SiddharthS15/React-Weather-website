@@ -26,39 +26,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Modal functionality
+// Page Navigation System
 document.addEventListener('DOMContentLoaded', () => {
-    const aboutModal = document.getElementById('aboutModal');
-    const aboutLink = document.querySelector('a[href="#about"]');
-    const closeModal = document.getElementById('closeModal');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pages = document.querySelectorAll('.page');
     
-    // Open modal when About is clicked
-    aboutLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        aboutModal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    });
-    
-    // Close modal when X is clicked
-    closeModal.addEventListener('click', () => {
-        aboutModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    });
-    
-    // Close modal when clicking outside
-    window.addEventListener('click', (e) => {
-        if (e.target === aboutModal) {
-            aboutModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    });
-    
-    // Close modal with Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && aboutModal.style.display === 'block') {
-            aboutModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+    // Handle navigation clicks
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Remove active class from all nav links
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            
+            // Add active class to clicked nav link
+            link.classList.add('active');
+            
+            // Hide all pages
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show target page
+            const targetPage = document.getElementById(link.dataset.page);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+        });
     });
 });
 
