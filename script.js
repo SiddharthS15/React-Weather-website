@@ -2,6 +2,17 @@
 // API key is loaded from config.js
 // Make sure to include config.js before this script in your HTML
 
+// Add API key check at the top
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if API_KEY is loaded
+    if (typeof API_KEY === 'undefined') {
+        console.error('API_KEY is not defined! Make sure config.js is loaded.');
+        showError('Configuration error: API key not found.');
+    } else {
+        console.log('API_KEY loaded successfully');
+    }
+});
+
 // Theme toggle functionality
 document.addEventListener('DOMContentLoaded', () => {
     const themeSwitch = document.getElementById('theme-switch');
@@ -46,12 +57,26 @@ function fetchWeather(city) {
     // Show loading spinner
     showLoading();
     
+    // Add debug logging
+    console.log('API_KEY:', API_KEY);
+    console.log('Fetching weather for city:', city);
+    
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
+    console.log('API URL:', url);
+    
     // Directly get weather data for the city
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`)
-        .then(res => res.json())
+    fetch(url)
+        .then(res => {
+            console.log('Response status:', res.status);
+            console.log('Response ok:', res.ok);
+            return res.json();
+        })
         .then(data => {
+            console.log('API Response data:', data);
+            
             if (data.cod !== 200) {
-                showError('City not found. Please try another city.');
+                console.error('API Error:', data.message);
+                showError(`Error: ${data.message || 'City not found. Please try another city.'}`);
                 return;
             }
             
@@ -71,14 +96,20 @@ function fetchWeather(city) {
                 rainfall = `${data.rain['3h']} mm (last 3h)`;
             }
             
+            console.log('Processing weather data successfully');
             showWeather(cityName, country, temp, humidity, rainfall, weatherDescription, weatherIcon, feelsLike, windSpeed);
         })
-        .catch(() => showError('Error fetching weather data. Please try again.'));
+        .catch(error => {
+            console.error('Fetch error:', error);
+            showError('Error fetching weather data. Please try again.');
+        });
 }
 
 // Remove the old getWeatherByCity function since we're using direct city search now
 
 function showWeather(cityName, country, temp, humidity, rainfall, weatherDescription, weatherIcon, feelsLike, windSpeed) {
+    console.log('showWeather called with:', {cityName, country, temp, humidity, rainfall, weatherDescription, weatherIcon, feelsLike, windSpeed});
+    
     document.getElementById('weatherContainer').innerHTML = `
         <div class="weather-result">
             <div class="weather-header">
@@ -112,6 +143,8 @@ function showWeather(cityName, country, temp, humidity, rainfall, weatherDescrip
             </div>
         </div>
     `;
+    
+    console.log('Weather display updated successfully');
 }
 
 function showError(msg) {
