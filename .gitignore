@@ -1,5 +1,8 @@
-# Temporarily allow config.js for deployment
+# Keep config.js in repo but with env variables
 # config.js
+
+# Local development config with real API key
+config.local.js
 
 # OS generated files
 .DS_Store
