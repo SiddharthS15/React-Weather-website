@@ -1,13 +1,23 @@
-# Weather App
+# SkyWeather App
 
-A simple weather application that shows temperature, humidity, and rainfall details for any country.
+A modern weather application that shows real-time weather data for any city worldwide.
 
-## Features
-- Search weather by country name
-- Dark/Light mode toggle
-- Animated UI with loading spinner
-- Responsive design
-- Modern navigation bar
+## 🌟 Features
+- **City Search** - Search weather by city name
+- **Dark/Light Mode** - Toggle between themes
+- **Real-time Data** - Temperature, humidity, rainfall, wind speed
+- **Weather Icons** - Dynamic weather condition icons
+- **Responsive Design** - Works on all devices
+- **Smooth Animations** - Modern UI with loading spinners
+- **Multi-page Navigation** - Home, About, Contact pages
+
+## 🚀 Live Demo
+Deployed on Vercel: [Your App URL]
+
+## 📱 Pages
+- **Home** (`index.html`) - Main weather search functionality
+- **About** (`about.html`) - App information and usage guide  
+- **Contact** (`contact.html`) - Links and resources
 
 ## Setup
 

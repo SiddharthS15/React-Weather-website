@@ -1,1 +1,14 @@
-config.js
+# Temporarily allow config.js for deployment
+# config.js
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
