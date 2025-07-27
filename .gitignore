@@ -1,5 +1,5 @@
-# Keep config.js in repo but with env variables
-# config.js
+# Keep config.js private - contains API key
+config.js
 
 # Local development config with real API key
 config.local.js

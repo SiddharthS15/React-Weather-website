@@ -5,11 +5,11 @@
 // Add API key check at the top
 document.addEventListener('DOMContentLoaded', () => {
     // Check if API_KEY is loaded
-    if (typeof API_KEY === 'undefined') {
-        console.error('API_KEY is not defined! Make sure config.js is loaded.');
-        showError('Configuration error: API key not found.');
+    if (typeof API_KEY === 'undefined' || API_KEY === 'YOUR_API_KEY_HERE') {
+        console.error('API_KEY is not configured! Please set up your API key.');
+        showError('Configuration error: Please configure your API key.');
     } else {
-        console.log('API_KEY loaded successfully');
+        console.log('API_KEY configured successfully');
     }
 });
 
