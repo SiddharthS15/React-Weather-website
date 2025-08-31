@@ -1,51 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Weather App</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <div class="logo-icon">🌤️</div>
-                <span>SkyWeather</span>
-            </div>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="contact.html" class="nav-link">Contact</a>
-                <div class="theme-toggle">
-                    <input type="checkbox" id="theme-switch" />
-                    <label for="theme-switch" class="toggle-label">
-                        <div class="toggle-slider">
-                            <span class="sun-icon">☀️</span>
-                            <span class="moon-icon">🌙</span>
-                        </div>
-                    </label>
-                </div>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- Main Weather App Page -->
-    <div class="weather-app">
-        <h1>Weather App</h1>
-        <div class="weather-bg-icon">
-            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="Weather Icon" style="width:60px;opacity:0.9;">
-        </div>
-        <div class="search-bar">
-            <input type="text" id="cityInput" placeholder="Enter city name (e.g., London, New York)">
-            <button id="searchBtn">Search</button>
-        </div>
-        <div id="weatherContainer" class="weather-container">
-            <!-- Weather details will appear here -->
-        </div>
-    </div>
-
-    <script src="config.js"></script>
-    <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
