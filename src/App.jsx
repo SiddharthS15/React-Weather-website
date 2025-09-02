@@ -15,6 +15,10 @@ function App() {
     <div className='search-container'>
       <input type="text" placeholder="Enter city name"  className='city-input'/>
       <button className='search-btn'> <FaSearch/></button>
+      <div className='weather-info'>
+        {/* Weather information will be displayed here */}
+      </div>
+      
     </div>
   </div>
     </>
